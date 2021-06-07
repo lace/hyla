@@ -1,1 +1,1 @@
-export {Polyline} from './polyline'
+export { Polyline } from './polyline'
