@@ -1,0 +1,29 @@
+env:
+  mocha: true
+
+extends:
+  - standard
+  - 'plugin:@typescript-eslint/recommended'
+  - prettier
+  - 'prettier/@typescript-eslint'
+
+parser: '@typescript-eslint/parser'
+
+rules:
+  # We keep whitespace cleaned up.
+  no-trailing-spaces: 'error'
+  eol-last: 'error'
+
+  # Argh.
+  '@typescript-eslint/explicit-function-return-type': 'off'
+  '@typescript-eslint/no-object-literal-type-assertion': 'off'
+
+  # These are not disabled by eslint-config-prettier
+  spaced-comment: 'off'
+  standard/object-curly-even-spacing: 'off'
+  one-var: 'off'
+
+  # Our additions.
+  no-var: 'error'
+  prefer-const: 'error'
+  no-console: 'error'
