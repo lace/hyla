@@ -3,7 +3,7 @@ import { Vector3 } from './vector'
 
 export interface LegacyPolylineData {
   vertices: Vector3[]
-  is_closed: boolean
+  is_closed: boolean // eslint-disable-line camelcase
 }
 
 export interface PolylineData {
@@ -19,6 +19,7 @@ export class Polyline {
 
   constructor(data: PolylineData | LegacyPolylineData) {
     this.vertices = data.vertices
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.isClosed = (data as any).isClosed ?? (data as any).is_closed
   }
 
