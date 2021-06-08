@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm run mocha
+          command: npm test
 
       - run:
           name: Check types
