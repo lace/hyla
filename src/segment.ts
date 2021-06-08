@@ -3,6 +3,7 @@ import { Point } from './point'
 import { clamp } from './scalar'
 import { Vector } from './vector'
 
+/* Represent a line segment in 3-space. */
 export class Segment {
   readonly first: Point
   readonly second: Point
