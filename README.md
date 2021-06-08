@@ -9,11 +9,15 @@
 [build]: https://circleci.com/gh/lace/hyla/tree/main
 [prettier]: https://prettier.io/
 
-2D and 3D computational geometry library.
+Immutable 2D and 3D computational geometry library in TypeScript.
 
-The goal of this library is to provide lightweight (and eventually fast)
-implementations of primitives like planes, polygonal chains, and axis-aligned
-bounding boxes, along with geometric operations.
+The goal of this library is to provide lightweight implementations of primitives
+like planes, polygonal chains, and axis-aligned bounding boxes, along with
+geometric operations.
+
+It aims to be efficient and avoid unnecessary copies. So far there have been no
+attempts to replace loops with vectorized operations, though this may be done in
+the future.
 
 Counterpart to the Python library [polliwog][].
 

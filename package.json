@@ -1,6 +1,6 @@
 {
   "name": "hyla",
-  "description": "2D and 3D computational geometry library",
+  "description": "2D and 3D computational geometry library in TypeScript",
   "keywords": [
     "computational-geometry",
     "geometry",
@@ -19,18 +19,16 @@
     "predev": "del dist/",
     "dev": "tsc --watch",
     "check-types": "tsc --noEmit --project .",
-    "mocha": "ts-mocha --project tsconfig.json \"src/**/*.spec.ts\"",
     "lint": "eslint \"**/*.ts\"",
     "prettier:check": "prettier --check \"**/*.@(ts|js|yml|md|json)\"",
     "prettier": "prettier --write \"**/*.@(ts|js|yml|md|json)\"",
-    "test": "run-p --continue-on-error check-types mocha lint prettier:check",
+    "test": "ts-mocha --project tsconfig.json \"src/**/*.spec.ts\"",
     "prepare": "npm run build"
   },
   "files": [
     "dist/**/*.@(js|ts|map)"
   ],
   "repository": "lace/hyla",
-  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.2.18",
     "@types/mocha": "^8.2.2",
@@ -48,6 +46,7 @@
     "mocha": "^9.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
+    "sazerac": "^2.0.0",
     "ts-mocha": "^8.0.0",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"

@@ -1,26 +1,51 @@
+import { addCoords, divideCoordsByScalar, Coords } from './coords'
 import { Segment } from './segment'
-import { Vector3 } from './vector'
-
-export interface LegacyPolylineData {
-  vertices: Vector3[]
-  is_closed: boolean // eslint-disable-line camelcase
-}
+import { Point } from './point'
 
 export interface PolylineData {
-  vertices: Vector3[]
+  vertices: [number, number, number][]
   isClosed: boolean
 }
 
+export interface LegacyPolylineData {
+  vertices: [number, number, number][]
+  is_closed: boolean // eslint-disable-line camelcase
+}
+
+/* Encapsulate the vertex indices of an edge of a polyline. */
 export type Edge = [number, number]
 
+/* Represent a polygonal chain in 3-space. */
 export class Polyline {
-  readonly vertices: Vector3[]
+  readonly vertices: Point[]
   readonly isClosed: boolean
 
-  constructor(data: PolylineData | LegacyPolylineData) {
-    this.vertices = data.vertices
-    //eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.isClosed = (data as any).isClosed ?? (data as any).is_closed
+  constructor({
+    vertices,
+    isClosed,
+  }: {
+    vertices: Point[]
+    isClosed: boolean
+  }) {
+    if (vertices.length < 1) {
+      throw Error('A polyline needs at least one vertex')
+    }
+    this.vertices = vertices
+    this.isClosed = isClosed
+  }
+
+  static fromData({ vertices, isClosed }: PolylineData): Polyline {
+    return new this({
+      vertices: vertices.map(coords => new Point(coords)),
+      isClosed,
+    })
+  }
+
+  static fromLegacyData({
+    vertices,
+    is_closed: isClosed,
+  }: LegacyPolylineData): Polyline {
+    return this.fromData({ vertices, isClosed })
   }
 
   get edges(): Edge[] {
@@ -35,33 +60,55 @@ export class Polyline {
     }
   }
 
-  get segments(): [Vector3, Vector3][] {
-    return this.edges.map(([first, second]) => [
-      this.vertices[first],
-      this.vertices[second],
-    ])
+  get segments(): Segment[] {
+    return this.edges.map(
+      ([firstIndex, secondIndex]) =>
+        new Segment(this.vertices[firstIndex], this.vertices[secondIndex])
+    )
   }
 
-  get pathCentroid(): Vector3 {
-    const {
-      sum: [x, y, z],
-      totalWeight,
-    } = this.segments
-      .map(([first, second]) => new Segment(first, second))
-      .reduce(
-        (
-          { sum: [x, y, z], totalWeight },
-          { centroid: [centroidX, centroidY, centroidZ], length }
-        ) => ({
-          sum: [
-            x + length * centroidX,
-            y + length * centroidY,
-            z + length * centroidZ,
-          ],
-          totalWeight: totalWeight + length,
-        }),
-        { sum: [0, 0, 0], totalWeight: 0 }
-      )
-    return [x / totalWeight, y / totalWeight, z / totalWeight]
+  get pathCentroid(): Point {
+    if (this.vertices.length === 1) {
+      return this.vertices[0]
+    }
+
+    // Computed the mean of the segment centroids, weighted by their length.
+    const { sum, totalWeight } = this.segments.reduce(
+      ({ sum, totalWeight }, thisSegment) => ({
+        sum: addCoords(
+          sum,
+          thisSegment.centroid.timesScalar(thisSegment.length),
+          Coords
+        ),
+        totalWeight: totalWeight + length,
+      }),
+      { sum: new Coords([0, 0, 0]), totalWeight: 0 }
+    )
+    return divideCoordsByScalar(sum, totalWeight, Point)
+  }
+
+  nearest(toPoint: Point): Point {
+    if (this.vertices.length === 1) {
+      return this.vertices[0]
+    }
+
+    // Computed the mean of the segment centroids, weighted by their length.
+    return this.segments.reduce(
+      ({ resultPoint, resultDistanceSquared }, thisSegment) => {
+        const thisNearest = thisSegment.nearest(toPoint)
+        const thisDistanceSquared =
+          thisNearest.euclideanDistanceSquared(toPoint)
+
+        if (thisDistanceSquared < resultDistanceSquared) {
+          return {
+            resultPoint: thisNearest,
+            resultDistanceSquared: thisDistanceSquared,
+          }
+        } else {
+          return { resultPoint, resultDistanceSquared }
+        }
+      },
+      { resultPoint: Point.origin, resultDistanceSquared: Infinity }
+    ).resultPoint
   }
 }
