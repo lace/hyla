@@ -4,6 +4,8 @@ import { Point } from './point'
 
 describe('Polyline', () => {
   describe('`nearest()`', () => {
+    // Adapted from polliwog
+    // https://github.com/lace/polliwog/blob/8f0fb65757bcb03e0a428716c4769082d0bdee80/polliwog/polyline/test_polyline_object.py#L977-L1028
     const Z = -2.5
     const chomper = Polyline.fromData({
       vertices: [
