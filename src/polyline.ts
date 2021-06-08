@@ -92,7 +92,6 @@ export class Polyline {
       return this.vertices[0]
     }
 
-    // Computed the mean of the segment centroids, weighted by their length.
     return this.segments.reduce(
       ({ resultPoint, resultDistanceSquared }, thisSegment) => {
         const thisNearest = thisSegment.nearest(toPoint)
