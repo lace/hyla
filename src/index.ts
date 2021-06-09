@@ -1,0 +1,5 @@
+export { Point } from './point'
+export { LegacyPolylineData, Edge, Polyline, PolylineData } from './polyline'
+export * as scalar from './scalar'
+export { Segment } from './segment'
+export { Vector } from './vector'
