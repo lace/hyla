@@ -1,8 +1,35 @@
+import { expect } from 'chai'
 import { given, test } from 'sazerac'
 import { Polyline } from './polyline'
 import { Point } from './point'
 
 describe('Polyline', () => {
+  describe('`length`', () => {
+    const vertices: [number, number, number][] = [
+      [0, 0, 0],
+      [1, 2, 0],
+      [4, 5, 0],
+    ]
+
+    expect(
+      Polyline.fromData({
+        vertices,
+        isClosed: false,
+      }).length
+    ).to.equal(Math.sqrt(1 ** 2 + 2 ** 2) + Math.sqrt(3 ** 2 + 3 ** 2))
+
+    expect(
+      Polyline.fromData({
+        vertices,
+        isClosed: true,
+      }).length
+    ).to.equal(
+      Math.sqrt(1 ** 2 + 2 ** 2) +
+        Math.sqrt(3 ** 2 + 3 ** 2) +
+        Math.sqrt(4 ** 2 + 5 ** 2)
+    )
+  })
+
   describe('`nearest()`', () => {
     // Adapted from polliwog
     // https://github.com/lace/polliwog/blob/8f0fb65757bcb03e0a428716c4769082d0bdee80/polliwog/polyline/test_polyline_object.py#L977-L1028

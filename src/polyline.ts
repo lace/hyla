@@ -60,6 +60,15 @@ export class Polyline {
     }
   }
 
+  get length(): number {
+    return this.edges.reduce(
+      (accum, [firstIndex, secondIndex]) =>
+        accum +
+        this.vertices[firstIndex].euclideanDistance(this.vertices[secondIndex]),
+      0
+    )
+  }
+
   get segments(): Segment[] {
     return this.edges.map(
       ([firstIndex, secondIndex]) =>
