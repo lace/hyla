@@ -1,4 +1,9 @@
-import { addCoords, divideCoordsByScalar, Coords } from './coords'
+import {
+  addCoords,
+  divideCoordsByScalar,
+  multiplyCoordsByScalar,
+  Coords,
+} from './coords'
 import { Segment } from './segment'
 import { Point } from './point'
 
@@ -86,7 +91,11 @@ export class Polyline {
       ({ sum, totalWeight }, thisSegment) => ({
         sum: addCoords(
           sum,
-          thisSegment.midpoint.timesScalar(thisSegment.length),
+          multiplyCoordsByScalar(
+            thisSegment.midpoint,
+            thisSegment.length,
+            Coords
+          ),
           Coords
         ),
         totalWeight: totalWeight + length,

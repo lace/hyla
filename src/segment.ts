@@ -21,10 +21,10 @@ export class Segment {
     return subtractCoords(this.second, this.first, Vector)
   }
 
-  get midpoint(): Vector {
+  get midpoint(): Point {
     const [x1, y1, z1] = this.first.coords
     const [x2, y2, z2] = this.second.coords
-    return new Vector([0.5 * (x1 + x2), 0.5 * (y1 + y2), 0.5 * (z1 + z2)])
+    return new Point([0.5 * (x1 + x2), 0.5 * (y1 + y2), 0.5 * (z1 + z2)])
   }
 
   nearest(toPoint: Point): Point {
