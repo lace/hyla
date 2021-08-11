@@ -11,6 +11,10 @@
 
 - Vector: Add `length`, `lengthSquared`, and `normalized()`.
 
+### Bug fixes
+
+- Segment: Fix typing of `centroid` / `midpoint` (changed from Vector to Point).
+
 ## 0.2.0
 
 - Polyline: Add `length` property.
