@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0
+
+### BREAKING CHANGES
+
+- Vector: Rename `negate()` to `negated()`.
+- Segment: Rename `centroid` property to `midpoint`.
+
+### New features
+
+- Vector: Add `length`, `lengthSquared`, and `normalized()`.
+
 ## 0.2.0
 
 - Polyline: Add `length` property.
