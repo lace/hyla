@@ -28,10 +28,12 @@
   "repository": "lace/hyla",
   "devDependencies": {
     "@types/chai": "^4.2.19",
+    "@types/chai-roughly": "^1.0.1",
     "@types/mocha": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "chai": "^4.3.4",
+    "chai-roughly": "^1.0.0",
     "del-cli": "^3.0.1",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
