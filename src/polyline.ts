@@ -86,7 +86,7 @@ export class Polyline {
       ({ sum, totalWeight }, thisSegment) => ({
         sum: addCoords(
           sum,
-          thisSegment.centroid.timesScalar(thisSegment.length),
+          thisSegment.midpoint.timesScalar(thisSegment.length),
           Coords
         ),
         totalWeight: totalWeight + length,
