@@ -9,6 +9,15 @@ import {
 export class Vector extends Coords {
   static zero = new Vector([0, 0, 0])
 
+  get lengthSquared(): number {
+    const [x, y, z] = this.coords
+    return x ** 2 + y ** 2 + z ** 2
+  }
+
+  get length(): number {
+    return Math.sqrt(this.lengthSquared)
+  }
+
   timesScalar(scalar: number): Vector {
     return multiplyCoordsByScalar(this, scalar, Vector)
   }
@@ -17,8 +26,12 @@ export class Vector extends Coords {
     return divideCoordsByScalar(this, scalar, Vector)
   }
 
-  negate(): Vector {
+  negated(): Vector {
     return this.timesScalar(-1)
+  }
+
+  normalized(): Vector {
+    return divideCoordsByScalar(this, this.length, Vector)
   }
 
   dot(other: Vector): number {
