@@ -13,6 +13,7 @@ describe('Transforms', () => {
     )
 
     // Parity with polliwog.
+    // https://github.com/lace/polliwog/blob/10beedab641c512363f6f4adfc27de6568596a35/polliwog/transform/test_rotation.py
     expect(
       rotationFromUpAndLook(Vector.BASIS.Y, new Vector([1, 0, 1]))
     ).to.roughly.deep.equal([

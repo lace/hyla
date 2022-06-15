@@ -6,13 +6,14 @@ export type RotationMatrix = [Vector, Vector, Vector]
 Rotation matrix to rotate a mesh into a canonical reference frame. The result is
 a rotation matrix that will make up along +y and look along +z (i.e. facing
 towards a default opengl camera).
-
-Adapted from polliwog.
 */
 export function rotationFromUpAndLook(
   up: Vector,
   look: Vector
 ): RotationMatrix {
+  // Adapted from polliwog.
+  // https://github.com/lace/polliwog/blob/10beedab641c512363f6f4adfc27de6568596a35/polliwog/transform/_rotation.py
+
   if (up.length === 0) {
     throw Error('Singular up')
   }
