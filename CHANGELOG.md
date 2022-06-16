@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0
+
+### BREAKING CHANGES
+
+- Vector: Rename `Vector.zero` to `Vector.ZERO`.
+
+### New features
+
+- Transform: Add `rotationFromUpAndLook()`.
+- Vector: Add `cross()` method and basis vectors `Vector.BASIS.X`, `.Y`, `.Z`.
+
 ## 0.3.0
 
 ### BREAKING CHANGES
