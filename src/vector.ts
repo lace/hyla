@@ -7,7 +7,12 @@ import {
 
 /* Represent a vector in 3-space. */
 export class Vector extends Coords {
-  static zero = new Vector([0, 0, 0])
+  static ZERO = new Vector([0, 0, 0])
+  static BASIS = {
+    X: new Vector([1, 0, 0]),
+    Y: new Vector([0, 1, 0]),
+    Z: new Vector([0, 0, 1]),
+  }
 
   get lengthSquared(): number {
     const [x, y, z] = this.coords
@@ -31,6 +36,9 @@ export class Vector extends Coords {
   }
 
   normalized(): Vector {
+    if (this.length === 0) {
+      throw Error("Can't normalize the zero vector")
+    }
     return divideCoordsByScalar(this, this.length, Vector)
   }
 
@@ -38,6 +46,12 @@ export class Vector extends Coords {
     const [x1, y1, z1] = this.coords
     const [x2, y2, z2] = other.coords
     return x1 * x2 + y1 * y2 + z1 * z2
+  }
+
+  cross(other: Vector): Vector {
+    const [x1, y1, z1] = this.coords
+    const [x2, y2, z2] = other.coords
+    return new Vector([y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2])
   }
 
   subtract(otherVector: Vector): Vector {
