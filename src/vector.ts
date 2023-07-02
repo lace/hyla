@@ -1,5 +1,6 @@
 import {
   Coords,
+  addCoords,
   divideCoordsByScalar,
   multiplyCoordsByScalar,
   subtractCoords,
@@ -52,6 +53,10 @@ export class Vector extends Coords {
     const [x1, y1, z1] = this.coords
     const [x2, y2, z2] = other.coords
     return new Vector([y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2])
+  }
+
+  add(otherVector: Vector): Vector {
+    return addCoords(this, otherVector, Vector)
   }
 
   subtract(otherVector: Vector): Vector {
